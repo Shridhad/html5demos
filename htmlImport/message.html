@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Html Import Demo</title>
+    <link rel="import" href="warning.html" id="import-warning">
+  </head>
+  <body>
+      <script>
+        var link = document.querySelector('#import-warning');
+        var content = link.import;
+
+        // Grab DOM from warning.html's document.
+        var el = content.querySelector('.warning');
+
+        document.body.appendChild(el.cloneNode(true));
+      </script>
+
+  </body>
+</html>

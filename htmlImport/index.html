@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Html Import Demo</title>
+    <link rel="import" href="template.html" id="import-template">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+  </head>
+  <body>
+      <h1 class="title">Todo Items</h2>
+      <div id="todo-items">
+
+      </div>
+
+      <script charset="utf-8" type="text/javascript">
+        _.templateSettings = {
+          interpolate: /\{\{(.+?)\}\}/g
+        };
+
+        String.prototype.toDOM = function() {
+          var element = document.createElement("div"),
+              fragment = document.createDocumentFragment();
+          element.innerHTML=this;
+          fragment.appendChild(element.firstChild);
+          return fragment;
+        };
+        var json = {"title": "Todo Title", "description": "Todo Description"};
+
+        var templatesImport = document.querySelector('#import-template');
+        var importContent = templatesImport.import;
+
+        var template = importContent.querySelector('#todo-item-template');
+        var content = template.content.querySelector(".todo-item");
+        var _template = _.template(content.outerHTML);
+        var _dom = _template(json);
+
+        document.querySelector("#todo-items").appendChild(_dom.toDOM());
+      </script>
+  </body>
+</html>
